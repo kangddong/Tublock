@@ -14,10 +14,10 @@ final class BannerView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 26
-        view.backgroundColor = UIColor(displayP3Red: 185/255,
-                                       green: 185/255,
-                                       blue: 185/255,
-                                       alpha: 0.4)
+        view.backgroundColor = UIColor(displayP3Red: 94/255,
+                                       green: 94/255,
+                                       blue: 94/255,
+                                       alpha: 1.0)
         return view
     }()
     
@@ -81,6 +81,7 @@ extension BannerView {
     private func _addSubViews() {
         
         self.addSubview(_messageView)
+        _messageView.clipsToBounds = true
         _messageView.addSubview(_tublockLabel)
         _messageView.addSubview(_tublockLogoImageView)
         _messageView.addSubview(_messagePreviewLabel)

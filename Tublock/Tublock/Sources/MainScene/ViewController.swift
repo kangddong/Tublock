@@ -5,8 +5,9 @@
 //  Created by Doyeon on 2023/03/16.
 //
 
-import SnapKit
 import UIKit
+import SnapKit
+import Toast
 
 final class ViewController: UIViewController {
     
@@ -32,6 +33,7 @@ final class ViewController: UIViewController {
     
     private lazy var _setMessageView: SetMessageViewAvailable = {
         let messageView: SetMessageViewAvailable = SetMessageView()
+        messageView.delegate = self
         messageView.previewAction = { [weak self] preview in
             guard let self = self,
                   self.isPreviewing == false
@@ -98,7 +100,20 @@ extension ViewController {
 }
 
 // MARK: SetMessageView Metod
-extension ViewController {
+extension ViewController: MessageTextViewAction {
+    func didEndEditing(text: String) {
+        self.view.endEditing(true)
+        UserDefaultsManager.message = text
+    }
+    
+    func limitCount() {
+        self.view.makeToast(
+            "Please fill it out within 85 characters".localized,
+            duration: 1.0,
+            position: .center
+        )
+    }
+    
     private func _setUp(preview: BannerView) {
         
         preview.translatesAutoresizingMaskIntoConstraints = false
